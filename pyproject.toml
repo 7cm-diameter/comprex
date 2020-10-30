@@ -9,8 +9,8 @@ python = "^3.7"
 numpy = "^1.19.1"
 nptyping = "^1.3.0"
 sounddevice = "^0.4.0"
-pino = {git = "https://github.com/RidiculousLoop/pino"}
-amas = {git = "https://github.com/RidiculousLoop/amas"}
+pino = {git = "https://github.com/7cm-diameter/pino"}
+amas = {git = "https://github.com/7cm-diameter/amas"}
 opencv-python = "^4.4.0"
 
 [tool.poetry.dev-dependencies]

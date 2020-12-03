@@ -70,7 +70,7 @@ def repeat(values: List[Any], repeats: List[int]) -> List[Any]:
     return ret
 
 
-class TrialIter(object):
+class TrialIterator(object):
     def __init__(self, ids: List[Hashable], x: List[Any]):
         if not len(x) == len(ids):
             raise ValueError("`x` and `ids` must be the same length.")
@@ -93,11 +93,11 @@ class TrialIter(object):
         self.__now += 1
         return key, val
 
-    def set_sequence(self, seq: List[Hashable]) -> "TrialIter":
+    def set_sequence(self, seq: List[Hashable]) -> "TrialIterator":
         self.__seq = seq
         return self
 
     def shuffle(self, method: Callable[..., List[Any]], *args,
-                **kwargs) -> "TrialIter":
+                **kwargs) -> "TrialIterator":
         self.__seq = method(self.__seq, *args, **kwargs)
         return self

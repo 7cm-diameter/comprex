@@ -5,7 +5,7 @@ from amas.agent import Agent, NotWorkingError
 from amas.agent import Observer as _Observer
 from pino.ino import HIGH, LOW, Arduino
 
-from comprex.utils import EventTime, timestamp
+from comprex.util import EventTime, timestamp
 
 # Pre-defined messages
 START = 0

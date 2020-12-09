@@ -49,5 +49,5 @@ def namefile(meta: Metadata,
     return stem + "." + extension
 
 
-def get_current_file_abspath() -> str:
-    return dirname(abspath(__file__))
+def get_current_file_abspath(relpath: str) -> str:
+    return dirname(abspath(relpath))

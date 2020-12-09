@@ -1,4 +1,5 @@
 from datetime import datetime
+from os.path import abspath, dirname
 from time import perf_counter
 from typing import Optional, Tuple
 
@@ -46,3 +47,7 @@ def namefile(meta: Metadata,
     if extension.startswith("."):
         return stem + extension
     return stem + "." + extension
+
+
+def get_current_file_abspath() -> str:
+    return dirname(abspath(__file__))

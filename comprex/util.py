@@ -1,11 +1,11 @@
 from datetime import datetime
 from os.path import abspath, dirname
 from time import perf_counter
-from typing import Optional, Tuple
+from typing import Any, Optional, Tuple
 
 from pino.config import Metadata
 
-Event = int
+Event = Any
 Time = float
 EventTime = Tuple[Time, Event]
 

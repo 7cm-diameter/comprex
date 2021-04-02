@@ -1,9 +1,21 @@
 from random import shuffle
 from typing import Any, Callable, Hashable, List, Tuple
 
-from numpy import log
+import numpy as np
+from nptyping import NDArray
+from scipy.stats import geom
 
 Intervals = List[float]
+
+
+def geom_responses(mean: float,
+                   n: int,
+                   _min: int,
+                   _shuffle: bool = True) -> NDArray[1, int]:
+    resps = geom.ppf(np.linspace(0.01, 0.99, n), p=1 / (mean - _min), loc=_min)
+    if _shuffle:
+        shuffle(resps)
+    return resps
 
 
 def uniform_intervals(mean: float,
@@ -31,10 +43,12 @@ def exponential_intervals(mean: float,
     intervals: Intervals = []
     for i in range(n - 1):
         i += 1
-        s = ((-log(1 - rate))**-1) * (1 + log(n) + (n - i) * log(n - i) -
-                                      (n - i + 1) * log(n - i + 1))
+        s = ((-np.log(1 - rate))**-1) * (1 + np.log(n) +
+                                         (n - i) * np.log(n - i) -
+                                         (n - i + 1) * np.log(n - i + 1))
         intervals.append(s + _min)
-    s = ((-log(1 - rate))**-1) * (1 + log(n) - (n - n + 1) * log(n - n + 1))
+    s = ((-np.log(1 - rate))**-1) * (1 + np.log(n) -
+                                     (n - n + 1) * np.log(n - n + 1))
     intervals.append(s + _min)
     if _shuffle:
         shuffle(intervals)

@@ -10,9 +10,10 @@ Intervals = List[float]
 
 def geom_responses(mean: float,
                    n: int,
-                   _min: int,
                    _shuffle: bool = True) -> NDArray[1, int]:
-    resps = geom.ppf(np.linspace(0.01, 0.99, n), p=1 / (mean - _min), loc=_min)
+    resps = geom.ppf(np.linspace(0.01, 0.99, n), p=1 / mean)
+    if mean == 1:
+        resps += 1
     if _shuffle:
         shuffle(resps)
     return resps

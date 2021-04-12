@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from amas.agent import OBSERVER as _OBSERVER
 from amas.agent import Agent, NotWorkingError
@@ -29,12 +29,15 @@ async def _observe(agent: _Observer) -> None:
     return None
 
 
-async def _self_terminate(agent: Agent) -> None:
+async def _self_terminate(agent: Agent, **kwargs) -> None:
     try:
         while agent.working():
             _, mess = await agent.recv_from_observer()
             if mess in (NEND, ABEND):
                 agent.finish()
+                ino: Optional[Arduino] = kwargs.get("ino")
+                if ino is not None:
+                    ino.cancel_read()
                 break
     except NotWorkingError:
         pass

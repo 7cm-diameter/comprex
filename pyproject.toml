@@ -12,7 +12,6 @@ sounddevice = "^0.4.0"
 pino = {git = "https://github.com/7cm-diameter/pino", branch = "main"}
 amas = {git = "https://github.com/7cm-diameter/amas", branch = "main"}
 scipy = "^1.6.2"
-opencv-python = "^4.5.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

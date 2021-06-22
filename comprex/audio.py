@@ -74,10 +74,11 @@ class Speaker(object):
     def check_availbale_device():
         return query_devices()
 
-    def play(self, tone: Tone, blocking=True) -> None:
+    def play(self, tone: Tone, blocking=True, loop: bool = False) -> None:
         play(tone.wave,
              samplerate=tone.samplerate,
              blocking=blocking,
+             loop=loop,
              device=self.__dev_idx)
         return None
 

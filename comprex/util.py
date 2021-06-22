@@ -17,13 +17,6 @@ def timestamp(event: Event) -> EventTime:
     return perf_counter(), event
 
 
-def current_abspath(f, withname: bool = True):
-    from os.path import abspath, dirname
-    if withname:
-        return abspath(f)
-    return dirname(abspath(f))
-
-
 def namefile(meta: Metadata,
              timeformat: Optional[str] = "%y%m%d%H%M",
              tfseparator: Optional[str] = "-",

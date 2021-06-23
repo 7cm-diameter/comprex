@@ -2,19 +2,19 @@ from random import shuffle
 from typing import Any, Callable, Hashable, List, Tuple
 
 import numpy as np
-from nptyping import NDArray
 from scipy.stats import geom
 
 Intervals = List[float]
+Responses = List[int]
 
 
-def geom_rng(mean: float, n: int, _shuffle: bool = True) -> NDArray[1, int]:
+def geom_rng(mean: float, n: int, _shuffle: bool = True) -> Responses:
     resps = geom.ppf(np.linspace(0.01, 0.99, n), p=1 / mean)
     if mean == 1:
         resps += 1
     if _shuffle:
         shuffle(resps)
-    return resps
+    return list(map(lambda x: int(x), resps))
 
 
 def unif_rng(mean: float,

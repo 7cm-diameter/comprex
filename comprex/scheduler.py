@@ -8,9 +8,7 @@ from scipy.stats import geom
 Intervals = List[float]
 
 
-def geom_responses(mean: float,
-                   n: int,
-                   _shuffle: bool = True) -> NDArray[1, int]:
+def geom_rng(mean: float, n: int, _shuffle: bool = True) -> NDArray[1, int]:
     resps = geom.ppf(np.linspace(0.01, 0.99, n), p=1 / mean)
     if mean == 1:
         resps += 1
@@ -19,10 +17,10 @@ def geom_responses(mean: float,
     return resps
 
 
-def uniform_intervals(mean: float,
-                      _range: float,
-                      n: int,
-                      _shuffle: bool = True) -> Intervals:
+def unif_rng(mean: float,
+             _range: float,
+             n: int,
+             _shuffle: bool = True) -> Intervals:
     if mean < _range:
         raise ValueError("`_range` must be greater than `mean`")
     if not n > 0:
@@ -35,10 +33,10 @@ def uniform_intervals(mean: float,
     return intervals
 
 
-def exponential_intervals(mean: float,
-                          n: int,
-                          _min: float = 0.,
-                          _shuffle: bool = True) -> Intervals:
+def expon_rng(mean: float,
+              n: int,
+              _min: float = 0.,
+              _shuffle: bool = True) -> Intervals:
     mean -= _min
     rate = 1 / mean
     intervals: Intervals = []

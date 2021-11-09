@@ -3,7 +3,7 @@ from os.path import abspath, dirname
 from time import perf_counter
 from typing import Any, Optional, Tuple
 
-from pino.config import Metadata
+from comprex.config import Metadata
 
 Event = Any
 Time = float

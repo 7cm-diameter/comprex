@@ -2,14 +2,18 @@ from random import shuffle
 from typing import Any, Callable, Hashable, List, Tuple
 
 import numpy as np
-from scipy.stats import geom
+from scipy.stats import geom, uniform
 
 Intervals = List[float]
 Responses = List[int]
 
 
+def _eqdiv(n: int) -> List[float]:
+    return [(i + 1) / (n + 1) for i in range(n)]
+
+
 def geom_rng(mean: float, n: int, _shuffle: bool = True) -> Responses:
-    resps = geom.ppf(np.linspace(0.01, 0.99, n), p=1 / mean)
+    resps = geom.ppf(_eqdiv(n), p=1 / mean)
     if mean == 1:
         resps += 1
     if _shuffle:
@@ -26,8 +30,8 @@ def unif_rng(mean: float,
     if not n > 0:
         raise ValueError("`trial` must be greater than 0")
     _min = mean - _range
-    d = mean / n
-    intervals: Intervals = [_min + step * d for step in range(n)]
+    l = mean + _range - _min
+    intervals = uniform.ppf(_eqdiv(n), _min, l)
     if _shuffle:
         shuffle(intervals)
     return intervals

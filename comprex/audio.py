@@ -2,12 +2,41 @@ from typing import Optional
 
 from nptyping import Float32, NDArray
 from numpy import arange, float32, pi, sin
+from numpy.random import uniform
 from sounddevice import play, query_devices, stop
 
 Wave = NDArray[Float32]
 
 
 class Tone(object):
+    def __init__(self,
+                 wave: Wave,
+                 duration: float,
+                 amp: float,
+                 samplerate: int = 48000):
+        self.__wave = wave
+        self.__amp = amp
+        self.__duration = duration
+        self.__samplerate = samplerate
+
+    @property
+    def wave(self) -> Wave:
+        return self.__wave
+
+    @property
+    def duration(self) -> float:
+        return self.__duration
+
+    @property
+    def amp(self) -> float:
+        return self.__amp
+
+    @property
+    def samplerate(self) -> int:
+        return self.__samplerate
+
+
+class PureTone(Tone):
     """
     Wrapper class for generating pure tone.
     """
@@ -26,24 +55,8 @@ class Tone(object):
         return hash(f"{self.freq} tone")
 
     @property
-    def wave(self) -> Wave:
-        return self.__wave
-
-    @property
-    def freq(self) -> float:
+    def freq(self):
         return self.__freq
-
-    @property
-    def duration(self) -> float:
-        return self.__duration
-
-    @property
-    def amp(self) -> float:
-        return self.__amp
-
-    @property
-    def samplerate(self) -> int:
-        return self.__samplerate
 
     def __generate_wave(self) -> Wave:
         tone = self.amp * sin(2.0 * pi * self.freq * arange(
@@ -64,6 +77,11 @@ class Tone(object):
         if samplerate is not None:
             self.__samplerate = samplerate
         self.__wave = self.__generate_wave()
+
+
+def make_white_noise(duration: float, samplerate: int = 48000) -> Wave:
+    array_length = int(48000 * duration)
+    return uniform(-1, 1, array_length)
 
 
 class Speaker(object):

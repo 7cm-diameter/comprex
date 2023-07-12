@@ -79,9 +79,10 @@ class PureTone(Tone):
         self.__wave = self.__generate_wave()
 
 
-def make_white_noise(duration: float, samplerate: int = 48000) -> Wave:
-    array_length = int(48000 * duration)
-    return uniform(-1, 1, array_length)
+def make_white_noise(duration: float, samplerate: int = 48000) -> Tone:
+    array_length = int(samplerate * duration)
+    noise = uniform(-1, 1, array_length)
+    return Tone(noise, duration, 1., samplerate)
 
 
 class Speaker(object):

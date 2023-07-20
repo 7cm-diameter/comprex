@@ -58,6 +58,22 @@ class PureTone(Tone):
     def freq(self):
         return self.__freq
 
+    @property
+    def wave(self) -> Wave:
+        return self.__wave
+
+    @property
+    def duration(self) -> float:
+        return self.__duration
+
+    @property
+    def amp(self) -> float:
+        return self.__amp
+
+    @property
+    def samplerate(self) -> int:
+        return self.__samplerate
+
     def __generate_wave(self) -> Wave:
         tone = self.amp * sin(2.0 * pi * self.freq * arange(
             self.samplerate * self.duration) / self.samplerate).astype(float32)

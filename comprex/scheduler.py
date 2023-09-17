@@ -1,5 +1,5 @@
 from random import shuffle
-from typing import Any, Callable, Hashable, List, Tuple
+from typing import Any, Callable, Hashable, List, Tuple, Sequence
 
 import numpy as np
 from scipy.stats import geom, uniform
@@ -118,3 +118,24 @@ class TrialIterator(object):
                 **kwargs) -> "TrialIterator":
         self.__seq = method(self.__seq, *args, **kwargs)
         return self
+
+
+class TrialIterator2(object):
+    def __init__(self, l: Sequence[Any], *args: Sequence[Any]):
+        ls = (l, *args)
+        lnc = len(ls)
+        lnr = len(l)
+        self.__tuples: list[tuple[Any]] = list(map(lambda i: tuple(map(lambda j: ls[j][i], range(lnc))), range(lnr)))
+        self.__n = lnr
+        self.__idx = range(self.__n)
+        self.__now = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self) -> tuple[int, Any]:
+        if self.__now >= self.__n:
+            raise StopIteration()
+        vals = self.__now, *self.__tuples[self.__now]
+        self.__now += 1
+        return vals

@@ -125,7 +125,7 @@ class TrialIterator2(object):
         ls = (l, *args)
         lnc = len(ls)
         lnr = len(l)
-        self.__tuples: list[tuple[Any]] = list(map(lambda i: tuple(map(lambda j: ls[j][i], range(lnc))), range(lnr)))
+        self.__tuples: list[tuple[Any, ...]] = list(map(lambda i: tuple(map(lambda j: ls[j][i], range(lnc))), range(lnr)))
         self.__n = lnr
         self.__idx = range(self.__n)
         self.__now = 0
@@ -133,7 +133,7 @@ class TrialIterator2(object):
     def __iter__(self):
         return self
 
-    def __next__(self) -> tuple[int, Any]:
+    def __next__(self) -> tuple[int, ...]:
         if self.__now >= self.__n:
             raise StopIteration()
         vals = self.__now, *self.__tuples[self.__now]
